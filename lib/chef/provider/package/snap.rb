@@ -218,6 +218,7 @@ class Chef
           waiting = true
           while waiting
             result = get_change_id(id)
+
             case result["result"]["status"]
             when "Do", "Doing", "Undoing", "Undo"
               # Continue
@@ -329,7 +330,7 @@ class Chef
         def generate_snap_json(snap_names, action, channel, options, revision = nil)
           request = {
               "action" => action,
-              "snaps" => snap_names,
+              "snaps" => Array(snap_names),
           }
           if %w{install refresh switch}.include?(action) && channel
             request["channel"] = channel
